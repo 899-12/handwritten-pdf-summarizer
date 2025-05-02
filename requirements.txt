@@ -1,0 +1,7 @@
+streamlit
+easyocr
+pdf2image
+transformers
+torch
+Pillow
+python-docx
