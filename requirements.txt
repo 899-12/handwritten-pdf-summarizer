@@ -1,7 +1,8 @@
 streamlit
-pdf2image
+pymupdf
 easyocr
 transformers
 torch
 numpy
 Pillow
+
