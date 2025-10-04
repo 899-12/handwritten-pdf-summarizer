@@ -4,6 +4,7 @@ import easyocr
 from transformers import pipeline
 import numpy as np
 from PIL import Image
+import fitz  # PyMuPDF
 
 # Initialize OCR and summarizer
 reader = easyocr.Reader(['en'], gpu=False)
@@ -19,8 +20,15 @@ if uploaded_file:
     st.info("Extracting text from PDF...")
 
     try:
-        # Convert PDF to images
-        images = convert_from_bytes(uploaded_file.read())
+
+        # ✅ new code using PyMuPDF
+        doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+        images = []
+        for page in doc:
+            pix = page.get_pixmap()
+            img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+            images.append(img)
+
 
         full_text = ""
 
@@ -48,3 +56,4 @@ if uploaded_file:
                 st.warning("No text found to summarize.")
     except Exception as e:
         st.error(f"❌ Error: {str(e)}")
+
