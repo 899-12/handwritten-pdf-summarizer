@@ -4,5 +4,6 @@ easyocr
 transformers
 torch
 numpy
-Pillow
+Pillow 
+ddgs
 
